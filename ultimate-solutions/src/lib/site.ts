@@ -2,6 +2,8 @@ export const BRAND = {
   name: "Ultimate Solutions",
   phoneDisplay: "0705 281 8672",
   phoneHref: "tel:+2347052818672",
+  email: "contact@ultimatesolutionsinfotech.com",
+  emailHref: "mailto:contact@ultimatesolutionsinfotech.com",
   whatsappHref: "https://wa.me/2347052818672",
   instagram:
     "https://www.instagram.com/ultimatesolutionsng?igsh=MXRmOXVyMzk5Y2V4Mw%3D%3D&utm_source=qr",

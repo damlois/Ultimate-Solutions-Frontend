@@ -82,7 +82,8 @@ export default function Home() {
                   </a>
                 </div>
 
-                <div className="grid grid-cols-2 gap-3 max-w-md pt-2 mt-[100px]">
+                {/* Desktop stats (keep in left column) */}
+                <div className="hidden lg:grid grid-cols-2 gap-3 max-w-md pt-2 mt-[40px] mx-auto md:mx-0 md:mt-[100px]">
                   {STATS.map((s) => (
                     <div key={s.label} className="glass rounded-2xl p-4">
                       <div className="font-display text-2xl font-semibold">
@@ -145,11 +146,25 @@ export default function Home() {
                 </div>
               </div>
             </div>
+
+            {/* Mobile stats (render below the right column) */}
+            <div className="lg:hidden">
+              <div className="grid grid-cols-2 gap-3 max-w-md pt-10 md:pt-6 mx-auto">
+                {STATS.map((s) => (
+                  <div key={s.label} className="glass rounded-2xl p-4">
+                    <div className="font-display text-2xl font-semibold">
+                      {s.value}
+                    </div>
+                    <div className="text-xs text-muted">{s.label}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </section>
 
         {/* Services */}
-        <section id="services" className="container-page py-16">
+        <section id="services" className="container-page py-8 md:py-16">
           <SectionHeading
             eyebrow="What we do"
             title="Services built for modern brands"
@@ -222,7 +237,7 @@ export default function Home() {
                 Clear planning, fast execution, strong delivery
               </h3>
               <p className="mt-3 text-sm text-muted leading-relaxed max-w-xl">
-                We collaborate closely with your team, align on scope and timelines,
+                We collaborate closely with you, align on scope and timelines,
                 and deliver designs and builds that are modern, reliable, and on time.
               </p>
               <ul className="mt-6 space-y-3 text-sm text-muted">
@@ -316,7 +331,7 @@ export default function Home() {
 
         {/* Contact */}
         <section id="contact" className="container-page py-16">
-          <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-r from-ultimate-purple/35 to-fuchsia-500/15 p-10">
+          <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-r from-ultimate-purple/35 to-fuchsia-500/15 p-7 sm:p-10">
             <div className="absolute -top-24 -right-24 h-[260px] w-[260px] rounded-full bg-white/10 blur-3xl" />
             <div className="relative grid gap-8 lg:grid-cols-2 lg:items-center">
               <div className="space-y-3">
@@ -328,18 +343,27 @@ export default function Home() {
                   project/event management. We’ll respond quickly.
                 </p>
               </div>
-              <div className="flex flex-col sm:flex-row gap-3 lg:justify-end">
+              <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 lg:justify-items-end">
                 <a
                   href={BRAND.phoneHref}
-                  className="inline-flex h-12 items-center justify-center rounded-full bg-white text-black px-6 text-sm font-semibold hover:bg-zinc-100 transition"
+                  className="inline-flex h-12 w-full flex-col items-center justify-center rounded-full border border-white/15 bg-black/20 px-6 hover:bg-black/30 transition"
                 >
-                  Call {BRAND.phoneDisplay}
+                  <span className="text-xs font-semibold leading-4">Call</span>
+                  <span className="text-xs font-medium text-white/90 leading-4">
+                    {BRAND.phoneDisplay}
+                  </span>
+                </a>
+                <a
+                  href={BRAND.emailHref}
+                  className="inline-flex h-12 w-full items-center justify-center rounded-full border border-white/15 bg-black/20 px-6 text-sm font-semibold hover:bg-black/30 transition"
+                >
+                  Email us
                 </a>
                 <a
                   href={BRAND.whatsappHref}
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex h-12 items-center justify-center rounded-full border border-white/15 bg-black/20 px-6 text-sm font-semibold hover:bg-black/30 transition"
+                  className="inline-flex h-12 w-full items-center justify-center rounded-full border border-white/15 bg-black/20 px-6 text-sm font-semibold hover:bg-black/30 transition sm:col-span-2 lg:col-span-1"
                 >
                   Message on WhatsApp
                 </a>

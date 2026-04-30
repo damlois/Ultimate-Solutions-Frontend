@@ -47,6 +47,12 @@ export function Footer() {
             >
               {BRAND.phoneDisplay}
             </a>
+            <a
+              href={BRAND.emailHref}
+              className="block text-sm text-muted hover:text-foreground hover:underline transition"
+            >
+              {BRAND.email}
+            </a>
           </div>
 
           <div className="space-y-3">
