@@ -35,7 +35,6 @@ export function Navbar() {
             alt={`${BRAND.name} logo`}
             width={80}
             height={80}
-            className="h-16 w-16 sm:h-20 sm:w-20 object-contain -my-2"
             priority
           />
         </Link>
