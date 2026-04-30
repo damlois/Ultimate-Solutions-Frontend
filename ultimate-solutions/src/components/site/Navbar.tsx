@@ -19,25 +19,21 @@ export function Navbar() {
     <header
       className={[
         "sticky top-0 z-50 w-full border-b transition-colors",
-        scrolled ? "bg-background/70 backdrop-blur-xl border-border" : "bg-transparent border-transparent",
+        scrolled
+          ? "bg-background/80 backdrop-blur-xl border-border"
+          : "bg-background/60 backdrop-blur-xl border-border/60",
       ].join(" ")}
     >
       <div className="container-page flex h-20 items-center justify-between">
         <Link href="/" className="flex items-center gap-2">
-          <picture className="block h-14 w-14 sm:h-16 sm:w-16">
-            <source
-              srcSet="/white-logo.png"
-              media="(prefers-color-scheme: dark)"
-            />
-            <Image
-              src="/purple-logo.png"
-              alt={`${BRAND.name} logo`}
-              width={64}
-              height={64}
-              className="h-14 w-14 sm:h-16 sm:w-16 object-contain"
-              priority
-            />
-          </picture>
+          <Image
+            src="/purple-logo.png"
+            alt={`${BRAND.name} logo`}
+            width={64}
+            height={64}
+            className="h-14 w-14 sm:h-16 sm:w-16 object-contain"
+            priority
+          />
         </Link>
 
         <nav className="hidden md:flex items-center gap-7 text-sm text-muted">

@@ -29,19 +29,13 @@ export function Footer() {
         <div className="grid gap-10 md:grid-cols-3">
           <div className="space-y-3">
             <div className="flex items-center">
-              <picture className="block h-16 w-16 sm:h-20 sm:w-20">
-                <source
-                  srcSet="/white-logo.png"
-                  media="(prefers-color-scheme: dark)"
-                />
-                <Image
-                  src="/purple-logo.png"
-                  alt={`${BRAND.name} logo`}
-                  width={80}
-                  height={80}
-                  className="h-16 w-16 sm:h-20 sm:w-20 object-contain"
-                />
-              </picture>
+              <Image
+                src="/purple-logo.png"
+                alt={`${BRAND.name} logo`}
+                width={80}
+                height={80}
+                className="h-16 w-16 sm:h-20 sm:w-20 object-contain"
+              />
             </div>
             <p className="text-sm text-muted max-w-sm">
               Cutting-edge digital solutions, design, development, storytelling,
