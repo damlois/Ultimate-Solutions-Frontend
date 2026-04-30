@@ -26,15 +26,9 @@
   --font-display: var(--font-space-grotesk);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #07060a;
-    --foreground: #f4f4f5;
-    --muted: #a1a1aa;
-    --card: #0f0e14;
-    --card-2: #141226;
-    --border: rgba(255, 255, 255, 0.10);
-  }
+/* Keep the site light even if the device is in Dark Mode */
+:root {
+  color-scheme: light;
 }
 
 body {
