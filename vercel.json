@@ -1,0 +1,7 @@
+{
+  "version": 2,
+  "installCommand": "cd ultimate-solutions && npm ci",
+  "buildCommand": "cd ultimate-solutions && npm run build",
+  "devCommand": "cd ultimate-solutions && npm run dev"
+}
+
