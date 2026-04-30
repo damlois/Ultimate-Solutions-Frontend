@@ -63,15 +63,21 @@ export function Footer() {
           <div className="space-y-3">
             <div className="font-display font-semibold">Quick links</div>
             <div className="grid gap-2 text-sm text-muted">
-              <a href="#services" className="hover:text-foreground transition">
+              <Link href="/#services" className="hover:text-foreground transition">
                 Services
-              </a>
+              </Link>
               <Link href="/work" className="hover:text-foreground transition">
                 Portfolio
               </Link>
-              <a href="#testimonials" className="hover:text-foreground transition">
+              <Link
+                href="/#testimonials"
+                className="hover:text-foreground transition"
+              >
                 Testimonials
-              </a>
+              </Link>
+              <Link href="/#contact" className="hover:text-foreground transition">
+                Contact
+              </Link>
               <Link href="/about" className="hover:text-foreground transition">
                 About
               </Link>

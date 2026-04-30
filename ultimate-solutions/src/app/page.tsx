@@ -106,7 +106,7 @@ export default function Home() {
                       priority
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent" />
-                    <div className="absolute top-4 left-4 z-10 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/80 backdrop-blur px-4 py-2 text-xs text-zinc-700">
+                    <div className="absolute bottom-4 left-4 z-10 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/80 backdrop-blur px-4 py-2 text-xs text-zinc-700">
                       <span className="font-semibold text-foreground">Digital Agency</span>
                       <span className="text-zinc-500">•</span>
                       <span>Design. Build. Deliver.</span>
