@@ -11,11 +11,6 @@ const TEAM = [
 		src: "/team/Anuoluwapo%20Soremekun.jpeg",
 	},
 	{
-		name: "Emmanuel Adegbola",
-		role: "Brand Identity Expert",
-		src: "/team/Emmanuel%20Adegbola.png",
-	},
-	{
 		name: "Gbadebo Adewale",
 		role: "Chief Operating Officer",
 		src: "/team/Gbadebo%20Adewale.jpeg",
@@ -24,6 +19,11 @@ const TEAM = [
 		name: "Oluwanifesimi Ariyo",
 		role: "Human Resource Personnel",
 		src: "/team/Oluwanifesimi%20Ariyo.jpg",
+	},
+  {
+		name: "Emmanuel Adegbola",
+		role: "Brand Identity Expert",
+		src: "/team/Emmanuel%20Adegbola.png",
 	},
 ] as const;
 
