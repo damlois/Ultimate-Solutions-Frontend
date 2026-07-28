@@ -141,7 +141,7 @@ export default function Home() {
                 </div>
 
                 <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl font-semibold tracking-tight text-balance">
-                  Your <span className="text-gradient">one-stop tech ecosystem</span>{" "}
+                  Your <span className="text-gradient-on-dark">one-stop tech ecosystem</span>{" "}
                   for brands that want to grow.
                 </h1>
                 <p className="max-w-xl leading-relaxed text-white/75">

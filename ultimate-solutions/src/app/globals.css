@@ -148,6 +148,17 @@ button:focus-visible,
   animation: gradient-pan 8s ease infinite;
 }
 
+/* Brighter variant for use on dark/photo backgrounds, where the default
+   gradient's dark purple stop loses contrast against dark overlays. */
+.text-gradient-on-dark {
+  background: linear-gradient(90deg, #f0abfc 0%, #e9d5ff 45%, #93c5fd 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  background-size: 200% 100%;
+  animation: gradient-pan 8s ease infinite;
+}
+
 .bg-gradient-brand {
   background: linear-gradient(120deg, var(--ultimate-purple), var(--accent-fuchsia) 60%, var(--accent-blue));
 }
@@ -283,6 +294,7 @@ button:focus-visible,
     scroll-behavior: auto;
   }
   .text-gradient,
+  .text-gradient-on-dark,
   .gradient-border,
   .marquee-track,
   .animate-float-slow,
