@@ -2,14 +2,19 @@
 
 :root {
   /* Light-by-default theme (requested) */
-  --background: #fbfbfe;
-  --foreground: #0b0b10;
-  --muted: #52525b;
+  --background: #fcfbfe;
+  --foreground: #100b17;
+  --muted: #5b5566;
   --card: #ffffff;
-  --card-2: #f6f6ff;
-  --border: rgba(2, 6, 23, 0.10);
+  --card-2: #f6f4fb;
+  --border: rgba(2, 6, 23, 0.08);
   --ultimate-purple: #4d0d57;
   --ultimate-purple-2: #7a1a88;
+  --accent-fuchsia: #c026d3;
+  --accent-blue: #2563eb;
+  --accent-amber: #d97706;
+  --accent-emerald: #059669;
+  --shadow-color: 265 45% 25%;
 }
 
 @theme inline {
@@ -31,6 +36,10 @@
   color-scheme: light;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
@@ -47,25 +56,242 @@ a:not(:disabled) {
 }
 
 ::selection {
-  background: rgba(77, 13, 87, 0.55);
+  background: rgba(192, 38, 211, 0.45);
+  color: #fff;
+}
+
+/* Focus ring consistency for keyboard users */
+a:focus-visible,
+button:focus-visible,
+[role="button"]:focus-visible {
+  outline: 2px solid var(--ultimate-purple);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Slim, on-brand scrollbar (WebKit) */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(var(--ultimate-purple), var(--accent-fuchsia));
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+::-webkit-scrollbar-thumb:hover {
+  background-clip: padding-box;
+  filter: brightness(1.1);
 }
 
 .container-page {
   @apply mx-auto w-full max-w-6xl px-6;
 }
 
+/* ---------------------------------------------------------------- */
+/* Surfaces                                                          */
+/* ---------------------------------------------------------------- */
+
+/* Soft tinted card: no hairline border, colored wash + shadow for depth. */
+.card-soft {
+  background: linear-gradient(160deg, rgba(77, 13, 87, 0.06), rgba(192, 38, 211, 0.03) 55%, transparent);
+  box-shadow: 0 1px 1px rgba(2, 6, 23, 0.02), 0 16px 36px -20px hsl(var(--shadow-color) / 0.4);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease;
+}
+.card-soft-hover {
+  background: linear-gradient(160deg, rgba(77, 13, 87, 0.06), rgba(192, 38, 211, 0.03) 55%, transparent);
+  box-shadow: 0 1px 1px rgba(2, 6, 23, 0.02), 0 16px 36px -20px hsl(var(--shadow-color) / 0.4);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease;
+}
+.card-soft-hover:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 1px 1px rgba(2, 6, 23, 0.03), 0 28px 54px -22px hsl(var(--shadow-color) / 0.5);
+}
+
+/* Rich dark panel used to break up all-white sections. */
+.card-dark {
+  position: relative;
+  background: radial-gradient(120% 140% at 0% 0%, #7a1a88 0%, #3a0a42 45%, #1a0620 100%);
+  color: #fff;
+  isolation: isolate;
+}
+.card-dark::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(60% 60% at 100% 100%, rgba(96, 165, 250, 0.25), transparent 70%);
+}
+
+/* Glass, used sparingly now: small overlay chips/badges on photography. */
 .glass {
-  @apply bg-black/[0.03] border border-black/10 backdrop-blur-xl;
+  @apply bg-white/80 border border-white/40 backdrop-blur-xl;
+  box-shadow: 0 8px 24px -12px rgba(2, 6, 23, 0.25);
+}
+
+.surface-elevated {
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.6) inset,
+    0 20px 40px -24px hsl(var(--shadow-color) / 0.35);
 }
 
 .text-gradient {
-  background: linear-gradient(
-    90deg,
-    var(--ultimate-purple) 0%,
-    #d946ef 45%,
-    #60a5fa 100%
-  );
+  background: linear-gradient(90deg, var(--ultimate-purple) 0%, var(--accent-fuchsia) 45%, var(--accent-blue) 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+  background-size: 200% 100%;
+  animation: gradient-pan 8s ease infinite;
+}
+
+.bg-gradient-brand {
+  background: linear-gradient(120deg, var(--ultimate-purple), var(--accent-fuchsia) 60%, var(--accent-blue));
+}
+
+/* Noise texture overlay for depth on hero/dark panels */
+.noise-overlay {
+  position: relative;
+}
+.noise-overlay::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.5;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.35'/></svg>");
+}
+
+/* Animated gradient border wrapper: wrap content in a relatively-positioned
+   parent, then place an element with this class as an absolutely
+   positioned sibling behind it. */
+.gradient-border {
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(120deg, var(--ultimate-purple), var(--accent-fuchsia), var(--accent-blue), var(--ultimate-purple));
+  background-size: 300% 300%;
+  animation: gradient-pan 6s ease infinite;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 28s linear infinite;
+}
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes gradient-pan {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes float-slow {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(20px, -24px) scale(1.05);
+  }
+}
+
+@keyframes float-slower {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(-24px, 20px) scale(1.08);
+  }
+}
+
+.animate-float-slow {
+  animation: float-slow 12s ease-in-out infinite;
+}
+.animate-float-slower {
+  animation: float-slower 16s ease-in-out infinite;
+}
+
+@keyframes modal-backdrop-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes modal-panel-in {
+  from {
+    opacity: 0;
+    transform: scale(0.96) translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.animate-modal-backdrop {
+  animation: modal-backdrop-in 0.25s ease both;
+}
+.animate-modal-panel {
+  animation: modal-panel-in 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Scroll-reveal primitives, driven by the Reveal component toggling
+   data-visible via IntersectionObserver. */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+[data-reveal][data-visible="true"] {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .text-gradient,
+  .gradient-border,
+  .marquee-track,
+  .animate-float-slow,
+  .animate-float-slower {
+    animation: none !important;
+  }
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
 }

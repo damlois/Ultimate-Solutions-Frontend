@@ -22,14 +22,17 @@ export function Navbar() {
   return (
     <header
       className={[
-        "sticky top-0 z-50 w-full border-b transition-colors",
+        "sticky top-0 z-50 w-full border-b transition-all duration-300",
         scrolled
-          ? "bg-background/80 backdrop-blur-xl border-border"
+          ? "bg-background/85 backdrop-blur-xl border-border shadow-[0_8px_30px_-20px_rgba(2,6,23,0.25)]"
           : "bg-background/60 backdrop-blur-xl border-border/60",
       ].join(" ")}
     >
       <div className="container-page flex h-20 items-center justify-between">
-        <Link href="/" className="flex items-center gap-2">
+        <Link
+          href="/"
+          className="flex items-center gap-2 transition-transform duration-300 hover:scale-[1.03]"
+        >
           <Image
             src="/purple-logo.png"
             alt={`${BRAND.name} logo`}
@@ -40,38 +43,41 @@ export function Navbar() {
         </Link>
 
         <nav className="hidden md:flex items-center gap-7 text-sm text-muted">
-          {NAV.map((item) =>
-            item.href.startsWith("#") ? (
+          {NAV.map((item) => {
+            const isActive = !item.href.startsWith("#") && pathname === item.href;
+            const linkClass = [
+              "relative py-1 transition-colors after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:rounded-full after:bg-ultimate-purple after:transition-all",
+              isActive
+                ? "text-foreground after:w-full"
+                : "hover:text-foreground after:w-0 hover:after:w-full",
+            ].join(" ");
+            return item.href.startsWith("#") ? (
               <a
                 key={item.href}
                 href={pathname === "/" ? item.href : `/${item.href}`}
-                className="hover:text-foreground transition-colors"
+                className={linkClass}
               >
                 {item.label}
               </a>
             ) : (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="hover:text-foreground transition-colors"
-              >
+              <Link key={item.href} href={item.href} className={linkClass}>
                 {item.label}
               </Link>
-            )
-          )}
+            );
+          })}
         </nav>
 
         <div className="flex items-center gap-3">
           <a
             href={pathname === "/" ? "#contact" : "/#contact"}
-            className="hidden sm:inline-flex h-10 items-center rounded-full px-4 text-sm font-semibold bg-ultimate-purple text-white hover:bg-ultimate-purple-2 transition"
+            className="hidden sm:inline-flex h-10 items-center rounded-full px-4 text-sm font-semibold bg-ultimate-purple text-white shadow-sm shadow-ultimate-purple/30 hover:bg-ultimate-purple-2 hover:shadow-md hover:shadow-ultimate-purple/40 hover:-translate-y-0.5 transition-all"
           >
             Book A Free Consultation
           </a>
 
           <button
             type="button"
-            className="md:hidden inline-flex h-10 w-10 items-center justify-center rounded-2xl border border-border bg-card hover:bg-black/[0.03] transition"
+            className="md:hidden inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-ultimate-purple/5 text-ultimate-purple hover:bg-ultimate-purple/10 transition"
             aria-label={mobileOpen ? "Close menu" : "Open menu"}
             aria-expanded={mobileOpen}
             onClick={() => setMobileOpen((v) => !v)}
@@ -81,8 +87,15 @@ export function Navbar() {
         </div>
       </div>
 
-      {mobileOpen ? (
-        <div className="md:hidden border-t border-border/70 bg-background/90 backdrop-blur-xl">
+      <div
+        className={[
+          "md:hidden grid overflow-hidden border-t bg-background/95 backdrop-blur-xl transition-all duration-300 ease-out",
+          mobileOpen
+            ? "grid-rows-[1fr] opacity-100 border-border/70"
+            : "grid-rows-[0fr] opacity-0 border-transparent",
+        ].join(" ")}
+      >
+        <div className="min-h-0">
           <div className="container-page py-4 flex flex-col gap-2">
             {NAV.map((item) =>
               item.href.startsWith("#") ? (
@@ -117,7 +130,7 @@ export function Navbar() {
             </div>
           </div>
         </div>
-      ) : null}
+      </div>
     </header>
   );
 }

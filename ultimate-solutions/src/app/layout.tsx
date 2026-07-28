@@ -40,6 +40,9 @@ export default function RootLayout({
         className="min-h-full flex flex-col bg-background text-foreground font-sans"
         suppressHydrationWarning
       >
+        <noscript>
+          <style>{`[data-reveal]{opacity:1 !important;transform:none !important;}`}</style>
+        </noscript>
         {children}
       </body>
     </html>
