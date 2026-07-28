@@ -9,7 +9,7 @@ import { usePathname } from "next/navigation";
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
-  const [mobileOpen, setMobileOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
 
   useEffect(() => {
@@ -23,7 +23,7 @@ export function Navbar() {
     <header
       className={[
         "sticky top-0 z-50 w-full border-b transition-all duration-300",
-        scrolled
+        scrolled || menuOpen
           ? "bg-background/85 backdrop-blur-xl border-border shadow-[0_8px_30px_-20px_rgba(2,6,23,0.25)]"
           : "bg-background/60 backdrop-blur-xl border-border/60",
       ].join(" ")}
@@ -42,90 +42,100 @@ export function Navbar() {
           />
         </Link>
 
-        <nav className="hidden md:flex items-center gap-7 text-sm text-muted">
-          {NAV.map((item) => {
-            const isActive = !item.href.startsWith("#") && pathname === item.href;
-            const linkClass = [
-              "relative py-1 transition-colors after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:rounded-full after:bg-ultimate-purple after:transition-all",
-              isActive
-                ? "text-foreground after:w-full"
-                : "hover:text-foreground after:w-0 hover:after:w-full",
-            ].join(" ");
-            return item.href.startsWith("#") ? (
-              <a
-                key={item.href}
-                href={pathname === "/" ? item.href : `/${item.href}`}
-                className={linkClass}
-              >
-                {item.label}
-              </a>
-            ) : (
-              <Link key={item.href} href={item.href} className={linkClass}>
-                {item.label}
-              </Link>
-            );
-          })}
-        </nav>
-
         <div className="flex items-center gap-3">
           <a
             href={pathname === "/" ? "#contact" : "/#contact"}
-            className="hidden sm:inline-flex h-10 items-center rounded-full px-4 text-sm font-semibold bg-ultimate-purple text-white shadow-sm shadow-ultimate-purple/30 hover:bg-ultimate-purple-2 hover:shadow-md hover:shadow-ultimate-purple/40 hover:-translate-y-0.5 transition-all"
+            className="hidden sm:inline-flex h-11 items-center rounded-full px-5 text-sm font-semibold bg-ultimate-purple text-white shadow-sm shadow-ultimate-purple/30 hover:bg-ultimate-purple-2 hover:shadow-md hover:shadow-ultimate-purple/40 hover:-translate-y-0.5 transition-all"
           >
             Book A Free Consultation
           </a>
 
           <button
             type="button"
-            className="md:hidden inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-ultimate-purple/5 text-ultimate-purple hover:bg-ultimate-purple/10 transition"
-            aria-label={mobileOpen ? "Close menu" : "Open menu"}
-            aria-expanded={mobileOpen}
-            onClick={() => setMobileOpen((v) => !v)}
+            className={[
+              "inline-flex h-11 w-11 items-center justify-center rounded-full transition-all",
+              menuOpen
+                ? "bg-ultimate-purple text-white rotate-90"
+                : "bg-ultimate-purple/5 text-ultimate-purple hover:bg-ultimate-purple/10",
+            ].join(" ")}
+            aria-label={menuOpen ? "Close menu" : "Open menu"}
+            aria-expanded={menuOpen}
+            onClick={() => setMenuOpen((v) => !v)}
           >
-            {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            {menuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
         </div>
       </div>
 
       <div
         className={[
-          "md:hidden grid overflow-hidden border-t bg-background/95 backdrop-blur-xl transition-all duration-300 ease-out",
-          mobileOpen
+          "grid overflow-hidden border-t bg-background/95 backdrop-blur-xl transition-all duration-300 ease-out",
+          menuOpen
             ? "grid-rows-[1fr] opacity-100 border-border/70"
             : "grid-rows-[0fr] opacity-0 border-transparent",
         ].join(" ")}
       >
         <div className="min-h-0">
-          <div className="container-page py-4 flex flex-col gap-2">
-            {NAV.map((item) =>
-              item.href.startsWith("#") ? (
-                <a
-                  key={item.href}
-                  href={pathname === "/" ? item.href : `/${item.href}`}
-                  className="rounded-2xl px-4 py-3 text-sm font-medium text-foreground hover:bg-black/[0.03] transition"
-                  onClick={() => setMobileOpen(false)}
-                >
-                  {item.label}
-                </a>
-              ) : (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className="rounded-2xl px-4 py-3 text-sm font-medium text-foreground hover:bg-black/[0.03] transition"
-                  onClick={() => setMobileOpen(false)}
-                >
-                  {item.label}
-                </Link>
-              )
-            )}
+          <div className="container-page py-8 flex flex-col gap-1 sm:flex-row sm:items-start sm:justify-between sm:py-10">
+            <nav className="flex flex-col gap-1">
+              {NAV.map((item) => {
+                const href = item.href.startsWith("#")
+                  ? pathname === "/"
+                    ? item.href
+                    : `/${item.href}`
+                  : item.href;
+                const content = (
+                  <span className="font-display text-3xl sm:text-4xl font-semibold tracking-tight text-foreground transition-colors group-hover:text-ultimate-purple">
+                    {item.label}
+                  </span>
+                );
+                return item.href.startsWith("#") ? (
+                  <a
+                    key={item.href}
+                    href={href}
+                    className="group inline-flex items-center gap-3 py-2"
+                    onClick={() => setMenuOpen(false)}
+                  >
+                    {content}
+                    <span className="text-ultimate-purple/40 transition-transform group-hover:translate-x-1 group-hover:text-ultimate-purple">
+                      →
+                    </span>
+                  </a>
+                ) : (
+                  <Link
+                    key={item.href}
+                    href={href}
+                    className="group inline-flex items-center gap-3 py-2"
+                    onClick={() => setMenuOpen(false)}
+                  >
+                    {content}
+                    <span className="text-ultimate-purple/40 transition-transform group-hover:translate-x-1 group-hover:text-ultimate-purple">
+                      →
+                    </span>
+                  </Link>
+                );
+              })}
+            </nav>
 
-            <div className="pt-2">
+            <div className="mt-8 space-y-3 sm:mt-0 sm:text-right">
               <a
                 href={pathname === "/" ? "#contact" : "/#contact"}
-                className="inline-flex w-full h-11 items-center justify-center rounded-full bg-ultimate-purple px-5 text-sm font-semibold text-white hover:bg-ultimate-purple-2 transition"
-                onClick={() => setMobileOpen(false)}
+                className="inline-flex h-11 w-full items-center justify-center rounded-full bg-ultimate-purple px-6 text-sm font-semibold text-white hover:bg-ultimate-purple-2 transition sm:w-auto"
+                onClick={() => setMenuOpen(false)}
               >
                 Book A Free Consultation
+              </a>
+              <a
+                href={BRAND.emailHref}
+                className="block text-sm text-muted hover:text-foreground transition"
+              >
+                {BRAND.email}
+              </a>
+              <a
+                href={BRAND.phoneHref}
+                className="block text-sm text-muted hover:text-foreground transition"
+              >
+                {BRAND.phoneDisplay}
               </a>
             </div>
           </div>
@@ -134,4 +144,3 @@ export function Navbar() {
     </header>
   );
 }
-

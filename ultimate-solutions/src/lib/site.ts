@@ -55,7 +55,6 @@ export const SERVICES = [
 ] as const;
 
 export const STATS = [
-  { label: "Satisfied clients", value: "50+" },
   { label: "Projects completed", value: "100+" },
 ] as const;
 
