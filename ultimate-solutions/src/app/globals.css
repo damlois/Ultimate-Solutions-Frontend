@@ -27,8 +27,8 @@
   --color-ultimate-purple: var(--ultimate-purple);
   --color-ultimate-purple-2: var(--ultimate-purple-2);
 
-  --font-sans: var(--font-inter);
-  --font-display: var(--font-space-grotesk);
+  --font-sans: "Satoshi", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-display: "Clash Display", "Satoshi", ui-sans-serif, system-ui, -apple-system, sans-serif;
 }
 
 /* Keep the site light even if the device is in Dark Mode */

@@ -1,10 +1,13 @@
 import Image from "next/image";
 import { Navbar } from "@/components/site/Navbar";
 import { Footer } from "@/components/site/Footer";
+import { Faq } from "@/components/site/Faq";
 import { IconBadge, type IconBadgeColor } from "@/components/ui/IconBadge";
 import { BrandIcon } from "@/components/ui/BrandIcon";
 import { Reveal } from "@/components/ui/Reveal";
+import { CountUp } from "@/components/ui/CountUp";
 import { ICONS, type IconKey } from "@/lib/icons";
+import { Sparkles } from "lucide-react";
 import {
   OTHER_SERVICES,
   PORTFOLIO_LOGOS,
@@ -16,15 +19,42 @@ import {
 
 const ACCENT_COLORS: IconBadgeColor[] = ["purple", "fuchsia", "blue", "amber", "emerald"];
 
-export function Eyebrow({ children, center = false }: { children: React.ReactNode; center?: boolean }) {
+const SERVICE_CARD_BG = [
+  "bg-violet-100",
+  "bg-fuchsia-100",
+  "bg-sky-100",
+  "bg-amber-100",
+  "bg-emerald-100",
+];
+
+const PORTFOLIO_TINTS = [
+  "bg-violet-50",
+  "bg-sky-50",
+  "bg-amber-50",
+  "bg-emerald-50",
+  "bg-fuchsia-50",
+];
+
+export function Eyebrow({
+  children,
+  center = false,
+  dark = false,
+}: {
+  children: React.ReactNode;
+  center?: boolean;
+  dark?: boolean;
+}) {
   return (
     <div
       className={[
-        "inline-flex items-center gap-2 rounded-full border border-ultimate-purple/20 bg-ultimate-purple/5 px-3 py-1 text-xs font-semibold text-ultimate-purple",
+        "inline-flex items-center gap-2 rounded-full border px-3 py-1 text-xs font-semibold",
+        dark
+          ? "border-white/20 bg-white/10 text-white/90"
+          : "border-ultimate-purple/20 bg-ultimate-purple/5 text-ultimate-purple",
         center ? "mx-auto" : "",
       ].join(" ")}
     >
-      <span className="h-1.5 w-1.5 rounded-full bg-ultimate-purple" />
+      <span className={["h-1.5 w-1.5 rounded-full", dark ? "bg-fuchsia-300" : "bg-ultimate-purple"].join(" ")} />
       {children}
     </div>
   );
@@ -35,20 +65,37 @@ function SectionHeading({
   title,
   subtitle,
   center = false,
+  dark = false,
 }: {
   eyebrow?: string;
   title: string;
   subtitle?: string;
   center?: boolean;
+  dark?: boolean;
 }) {
   return (
     <div className={["space-y-3", center ? "text-center mx-auto" : ""].join(" ")}>
-      {eyebrow ? <Eyebrow center={center}>{eyebrow}</Eyebrow> : null}
-      <h2 className="font-display text-3xl sm:text-4xl font-semibold tracking-tight">
+      {eyebrow ? (
+        <Eyebrow center={center} dark={dark}>
+          {eyebrow}
+        </Eyebrow>
+      ) : null}
+      <h2
+        className={[
+          "font-display text-3xl sm:text-4xl font-semibold tracking-tight",
+          dark ? "text-white" : "",
+        ].join(" ")}
+      >
         {title}
       </h2>
       {subtitle ? (
-        <p className={["text-muted max-w-2xl", center ? "mx-auto" : ""].join(" ")}>
+        <p
+          className={[
+            "max-w-2xl",
+            dark ? "text-white/70" : "text-muted",
+            center ? "mx-auto" : "",
+          ].join(" ")}
+        >
           {subtitle}
         </p>
       ) : null}
@@ -62,229 +109,208 @@ export default function Home() {
       <Navbar />
 
       <main className="relative">
-        {/* Hero */}
-        <section className="relative overflow-hidden">
+        {/* Hero — full-bleed photo */}
+        <section className="relative isolate flex min-h-[88vh] items-end overflow-hidden">
           <div className="absolute inset-0 -z-10">
-            <div className="absolute -top-40 left-1/2 h-[520px] w-[520px] -translate-x-1/2 rounded-full bg-ultimate-purple/20 blur-3xl animate-float-slow" />
-            <div className="absolute bottom-[-200px] right-[-120px] h-[520px] w-[520px] rounded-full bg-fuchsia-500/10 blur-3xl animate-float-slower" />
-            <div className="absolute top-[180px] left-[-160px] h-[420px] w-[420px] rounded-full bg-sky-500/10 blur-3xl animate-float-slow" />
-            <div
-              className="absolute inset-0 opacity-[0.4] [background-image:radial-gradient(circle,rgba(2,6,23,0.08)_1px,transparent_1px)] [background-size:28px_28px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,black,transparent)]"
-              aria-hidden="true"
+            <Image
+              src="/hero.jpg"
+              alt="Ultimate Solutions creative workspace"
+              fill
+              sizes="100vw"
+              className="object-cover"
+              priority
             />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#150419] via-[#2a0a30]/80 to-ultimate-purple/40" />
+            <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-transparent to-black/20" />
           </div>
 
-          <div className="container-page pt-16 sm:pt-24 pb-14">
-            <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
-              <div className="space-y-6">
-                <div className="inline-flex items-center gap-2 rounded-full border border-ultimate-purple/25 bg-gradient-to-r from-ultimate-purple/10 to-fuchsia-500/10 px-3 py-1.5 text-xs font-semibold text-ultimate-purple shadow-sm">
+          <Sparkles
+            className="absolute right-10 top-24 hidden h-8 w-8 animate-spin text-fuchsia-300/80 sm:block [animation-duration:9s]"
+            aria-hidden="true"
+          />
+
+          <div className="container-page relative w-full py-16 sm:py-20">
+            <div className="grid gap-10 lg:grid-cols-[1fr_320px] lg:items-end">
+              <div className="space-y-6 text-white">
+                <div className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-3 py-1.5 text-xs font-semibold text-white backdrop-blur">
                   <span className="relative flex h-1.5 w-1.5">
-                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-ultimate-purple opacity-75" />
-                    <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-ultimate-purple" />
+                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-fuchsia-300 opacity-75" />
+                    <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-fuchsia-300" />
                   </span>
                   Now booking new projects
                 </div>
 
-                <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight text-balance">
-                  A <span className="text-gradient">digital tech ecosystem</span>{" "}
+                <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl font-semibold tracking-tight text-balance">
+                  Your <span className="text-gradient">one-stop tech ecosystem</span>{" "}
                   for brands that want to grow.
                 </h1>
-                <p className="text-muted max-w-xl leading-relaxed">
+                <p className="max-w-xl leading-relaxed text-white/75">
                   We help businesses stand out with graphics design, brand identity,
                   web development, UI/UX design, video editing, and project or event
                   management.
                 </p>
 
-                <div className="flex flex-col sm:flex-row gap-3">
+                <div className="flex flex-col gap-3 sm:flex-row">
                   <a
-                    href="#contact"
-                    className="group inline-flex h-12 items-center justify-center gap-2 rounded-full bg-ultimate-purple px-6 text-sm font-semibold text-white shadow-lg shadow-ultimate-purple/25 hover:bg-ultimate-purple-2 hover:shadow-xl hover:shadow-ultimate-purple/35 hover:-translate-y-0.5 transition-all"
+                    href="/work"
+                    className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-white px-6 text-sm font-semibold text-ultimate-purple shadow-lg hover:-translate-y-0.5 hover:shadow-xl transition-all"
                   >
-                    Contact Us
-                    <span className="transition-transform group-hover:translate-x-1">→</span>
+                    View our work ↗
                   </a>
                   <a
                     href="#contact"
-                    className="inline-flex h-12 items-center justify-center rounded-full bg-ultimate-purple/5 px-6 text-sm font-semibold text-ultimate-purple hover:bg-ultimate-purple/10 hover:-translate-y-0.5 transition-all"
+                    className="inline-flex h-12 items-center justify-center rounded-full border border-white/25 bg-white/10 px-6 text-sm font-semibold text-white hover:bg-white/20 hover:-translate-y-0.5 transition-all"
                   >
-                    Free Consultation
+                    Contact us
                   </a>
-                </div>
-
-                {/* Desktop stats (keep in left column) */}
-                <div className="hidden lg:grid grid-cols-2 gap-3 max-w-md pt-2 mt-[40px] mx-auto md:mx-0 md:mt-[100px]">
-                  {STATS.map((s, i) => (
-                    <div
-                      key={s.label}
-                      className={[
-                        "card-soft-hover rounded-2xl p-4",
-                        i === 0 ? "bg-gradient-brand text-white" : "",
-                      ].join(" ")}
-                    >
-                      <div
-                        className={[
-                          "font-display text-2xl font-semibold",
-                          i === 0 ? "text-white" : "text-gradient",
-                        ].join(" ")}
-                      >
-                        {s.value}
-                      </div>
-                      <div className={["text-xs", i === 0 ? "text-white/80" : "text-muted"].join(" ")}>
-                        {s.label}
-                      </div>
-                    </div>
-                  ))}
                 </div>
               </div>
 
-              <div className="relative">
-                <div className="absolute -inset-3 rounded-[2rem] bg-gradient-brand opacity-30 blur-2xl -z-10" />
-                <div className="rounded-3xl overflow-hidden bg-card shadow-2xl shadow-ultimate-purple/15">
-                  <div className="relative aspect-[16/11] w-full bg-card">
-                    <Image
-                      src="/hero.jpg"
-                      alt="Ultimate Solutions creative workspace"
-                      fill
-                      sizes="(max-width: 1024px) 100vw, 560px"
-                      className="object-cover"
-                      priority
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent" />
-                    <div className="absolute bottom-4 left-4 z-10 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/80 backdrop-blur px-4 py-2 text-xs text-zinc-700">
-                      <span className="font-semibold text-foreground">Digital Agency</span>
-                      <span className="text-zinc-500">•</span>
-                      <span>Design. Build. Deliver.</span>
-                    </div>
-                  </div>
-
-                  <div className="p-6 sm:p-8">
-                    <div className="grid grid-cols-2 gap-4">
-                      {PORTFOLIO_LOGOS.slice(0, 4).map((logo) => (
-                        <div
-                          key={logo.src}
-                          className="rounded-2xl bg-card-2 p-4 flex items-center justify-center shadow-sm transition-transform hover:scale-[1.04] hover:shadow-md"
-                        >
-                          <Image
-                            src={logo.src}
-                            alt={logo.alt}
-                            width={420}
-                            height={240}
-                            className="h-16 w-auto object-contain opacity-95"
-                          />
-                        </div>
-                      ))}
-                    </div>
-                    <p className="mt-6 text-sm text-muted">
-                      A glimpse of our work: logos, brand marks, and design samples.
-                    </p>
-                    <div className="mt-6 flex justify-end">
+              {/* Floating "what we do" panel */}
+              <div className="rounded-3xl border border-white/15 bg-white/10 p-6 text-white shadow-2xl backdrop-blur-xl">
+                <div className="flex items-center justify-between font-display text-sm font-semibold uppercase tracking-wide text-white/70">
+                  What we do
+                  <span aria-hidden="true">↓</span>
+                </div>
+                <ul className="mt-4 divide-y divide-white/10">
+                  {SERVICES.map((s) => (
+                    <li key={s.title}>
                       <a
-                        href="/work"
-                        className="inline-flex h-11 items-center justify-center rounded-full bg-ultimate-purple px-5 text-sm font-semibold text-white hover:bg-ultimate-purple-2 transition"
+                        href="#services"
+                        className="group flex items-center justify-between gap-4 py-3 text-sm font-medium"
                       >
-                        See more
+                        {s.title}
+                        <span className="text-white/40 transition-transform group-hover:translate-x-1 group-hover:text-white">
+                          →
+                        </span>
                       </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Mobile stats (render below the right column) */}
-            <div className="lg:hidden">
-              <div className="grid grid-cols-2 gap-3 max-w-md pt-10 md:pt-6 mx-auto">
-                {STATS.map((s, i) => (
-                  <div
-                    key={s.label}
-                    className={[
-                      "card-soft rounded-2xl p-4",
-                      i === 0 ? "bg-gradient-brand text-white" : "",
-                    ].join(" ")}
-                  >
-                    <div
-                      className={[
-                        "font-display text-2xl font-semibold",
-                        i === 0 ? "text-white" : "text-gradient",
-                      ].join(" ")}
-                    >
-                      {s.value}
-                    </div>
-                    <div className={["text-xs", i === 0 ? "text-white/80" : "text-muted"].join(" ")}>
-                      {s.label}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* Trust marquee */}
-          <div className="border-y border-border/70 bg-gradient-to-r from-ultimate-purple/5 via-transparent to-blue-500/5 py-6 overflow-hidden">
-            <div className="mb-3 text-center text-xs font-semibold uppercase tracking-widest text-ultimate-purple/70">
-              Trusted by growing brands
-            </div>
-            <div className="[mask-image:linear-gradient(90deg,transparent,black_10%,black_90%,transparent)]">
-              <div className="marquee-track gap-16 px-8">
-                {[...PORTFOLIO_LOGOS, ...PORTFOLIO_LOGOS].map((logo, i) => (
-                  <div
-                    key={`${logo.src}-${i}`}
-                    className="flex h-12 w-32 shrink-0 items-center justify-center opacity-60 grayscale transition hover:opacity-100 hover:grayscale-0"
-                  >
-                    <Image
-                      src={logo.src}
-                      alt={logo.alt}
-                      width={200}
-                      height={120}
-                      className="h-full w-auto object-contain"
-                    />
-                  </div>
-                ))}
+                    </li>
+                  ))}
+                </ul>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Services */}
-        <section id="services" className="container-page py-8 md:py-16">
-          <Reveal>
-            <SectionHeading
-              eyebrow="What we do"
-              title="Services built for modern brands"
-              subtitle="From strategy to execution, we combine creativity and technical excellence to deliver work that looks great and performs even better."
-            />
-          </Reveal>
+        {/* Stats band */}
+        <section className="border-b border-border/70 bg-card-2/60 py-10">
+          <div className="container-page flex items-center justify-center">
+            {STATS.map((s) => (
+              <div key={s.label} className="text-center">
+                <CountUp
+                  value={s.value}
+                  className="block font-display text-4xl sm:text-5xl font-semibold text-gradient"
+                />
+                <div className="mt-1 text-xs sm:text-sm text-muted uppercase tracking-wide">
+                  {s.label}
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
 
-          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {SERVICES.map((s, i) => {
-              const color = ACCENT_COLORS[i % ACCENT_COLORS.length];
-              return (
-                <Reveal key={s.title} delay={i * 80}>
-                  <div className="group card-soft-hover h-full rounded-3xl p-6">
-                    <div className="flex items-center justify-between">
-                      <IconBadge
-                        icon={ICONS[s.icon as IconKey]}
-                        color={color}
-                        className="transition-transform duration-300 group-hover:-rotate-6 group-hover:scale-110"
-                      />
-                      <span className="font-display text-xs font-semibold text-black/10 group-hover:text-ultimate-purple/40 transition-colors">
-                        0{i + 1}
-                      </span>
+        {/* Trust marquee */}
+        <div className="overflow-hidden border-b border-border/70 bg-gradient-to-r from-ultimate-purple/5 via-transparent to-blue-500/5 py-6">
+          <div className="mb-3 text-center text-xs font-semibold uppercase tracking-widest text-ultimate-purple/70">
+            Trusted by growing brands
+          </div>
+          <div className="[mask-image:linear-gradient(90deg,transparent,black_10%,black_90%,transparent)]">
+            <div className="marquee-track gap-16 px-8">
+              {[...PORTFOLIO_LOGOS, ...PORTFOLIO_LOGOS].map((logo, i) => (
+                <div
+                  key={`${logo.src}-${i}`}
+                  className="flex h-12 w-32 shrink-0 items-center justify-center opacity-60 grayscale transition hover:opacity-100 hover:grayscale-0"
+                >
+                  <Image
+                    src={logo.src}
+                    alt={logo.alt}
+                    width={200}
+                    height={120}
+                    className="h-full w-auto object-contain"
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Kinetic statement */}
+        <section className="container-page py-16 sm:py-24">
+          <Reveal>
+            <div className="grid gap-8 lg:grid-cols-[auto_1fr] lg:items-start">
+              <div className="hidden h-16 w-16 shrink-0 items-center justify-center lg:flex">
+                <div className="h-14 w-14 animate-spin rounded-full border-2 border-dashed border-ultimate-purple/30 [animation-duration:14s]" />
+              </div>
+              <div>
+                <p className="font-display text-3xl sm:text-4xl lg:text-5xl font-semibold leading-tight tracking-tight">
+                  <span className="text-foreground">Design solutions</span>{" "}
+                  <span className="text-muted">for startups and growing brands.</span>{" "}
+                  <span className="text-foreground">Turning ideas</span>{" "}
+                  <span className="text-muted">into clean, smart, and useful work</span>{" "}
+                  <span className="text-foreground">that helps you grow.</span>
+                </p>
+                <a
+                  href="#contact"
+                  className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-ultimate-purple underline underline-offset-4 hover:text-ultimate-purple-2 transition-colors"
+                >
+                  Let&apos;s chat
+                </a>
+              </div>
+            </div>
+          </Reveal>
+        </section>
+
+        {/* Services — full-bleed dark */}
+        <section id="services" className="bg-[#0f0616] py-16 sm:py-24 text-white">
+          <div className="container-page">
+            <Reveal>
+              <SectionHeading
+                eyebrow="What we do"
+                title="Solutions that drive results"
+                subtitle="From strategy to execution, we combine creativity and technical excellence to deliver work that looks great and performs even better."
+                dark
+              />
+            </Reveal>
+
+            <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {SERVICES.map((s, i) => {
+                const color = ACCENT_COLORS[i % ACCENT_COLORS.length];
+                const bg = SERVICE_CARD_BG[i % SERVICE_CARD_BG.length];
+                return (
+                  <Reveal key={s.title} delay={i * 80}>
+                    <div
+                      className={[
+                        "group h-full rounded-3xl p-6 text-[#150419] shadow-xl transition-all duration-300",
+                        "hover:-translate-y-1.5 hover:rotate-1 hover:shadow-2xl",
+                        bg,
+                      ].join(" ")}
+                    >
+                      <div className="flex items-center justify-between">
+                        <IconBadge
+                          icon={ICONS[s.icon as IconKey]}
+                          color={color}
+                          className="bg-white shadow-sm transition-transform duration-300 group-hover:-rotate-6 group-hover:scale-110"
+                        />
+                        <span className="font-display text-xs font-semibold text-black/15 group-hover:text-black/30 transition-colors">
+                          0{i + 1}
+                        </span>
+                      </div>
+                      <h3 className="mt-5 font-display text-lg font-semibold">
+                        {s.title}
+                      </h3>
+                      <p className="mt-2 text-sm leading-relaxed text-[#150419]/70">
+                        {s.description}
+                      </p>
                     </div>
-                    <h3 className="mt-5 font-display text-lg font-semibold">
-                      {s.title}
-                    </h3>
-                    <p className="mt-2 text-sm text-muted leading-relaxed">
-                      {s.description}
-                    </p>
-                  </div>
-                </Reveal>
-              );
-            })}
+                  </Reveal>
+                );
+              })}
+            </div>
           </div>
         </section>
 
         {/* Other Services */}
-        <section className="container-page pb-16 -mt-6">
+        <section className="container-page py-16">
           <Reveal>
             <SectionHeading
               eyebrow="Other services"
@@ -333,14 +359,11 @@ export default function Home() {
         </section>
 
         {/* Collaboration */}
-        <section className="container-page pb-16 -mt-2">
+        <section className="container-page pb-16">
           <div className="grid gap-6 lg:grid-cols-2 lg:items-stretch">
             <Reveal className="h-full">
               <div className="card-dark h-full rounded-3xl p-8 overflow-hidden">
-                <div className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1 text-xs font-semibold text-white/90">
-                  <span className="h-1.5 w-1.5 rounded-full bg-fuchsia-300" />
-                  How we work
-                </div>
+                <Eyebrow dark>How we work</Eyebrow>
                 <h3 className="mt-4 font-display text-2xl sm:text-3xl font-semibold tracking-tight">
                   Clear planning, fast execution, strong delivery
                 </h3>
@@ -395,14 +418,22 @@ export default function Home() {
           <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {PORTFOLIO_LOGOS.map((logo, i) => (
               <Reveal key={logo.src} delay={i * 60}>
-                <div className="group rounded-3xl bg-card p-6 flex items-center justify-center shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-ultimate-purple/20">
-                  <Image
-                    src={logo.src}
-                    alt={logo.alt}
-                    width={700}
-                    height={420}
-                    className="h-24 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
-                  />
+                <div
+                  className={[
+                    "group rounded-3xl p-6 flex items-center justify-center shadow-md transition-all duration-300",
+                    "hover:-translate-y-1 hover:rotate-1 hover:shadow-2xl hover:shadow-ultimate-purple/20",
+                    PORTFOLIO_TINTS[i % PORTFOLIO_TINTS.length],
+                  ].join(" ")}
+                >
+                  <div className="flex h-24 w-full items-center justify-center rounded-2xl bg-white shadow-sm">
+                    <Image
+                      src={logo.src}
+                      alt={logo.alt}
+                      width={700}
+                      height={420}
+                      className="h-16 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+                    />
+                  </div>
                 </div>
               </Reveal>
             ))}
@@ -458,6 +489,32 @@ export default function Home() {
           </Reveal>
         </section>
 
+        {/* FAQ */}
+        <section className="container-page py-16">
+          <div className="grid gap-10 lg:grid-cols-[320px_1fr]">
+            <Reveal>
+              <div className="space-y-4 lg:sticky lg:top-28">
+                <SectionHeading eyebrow="FAQ" title="Frequently asked questions" />
+                <div className="card-dark rounded-3xl p-6">
+                  <p className="text-sm text-white/80 leading-relaxed">
+                    Can&apos;t find what you&apos;re looking for? Reach out and we&apos;ll get back to you quickly.
+                  </p>
+                  <a
+                    href="#contact"
+                    className="mt-4 inline-flex h-11 items-center justify-center rounded-full bg-white px-6 text-sm font-semibold text-ultimate-purple hover:bg-white/90 hover:-translate-y-0.5 transition-all"
+                  >
+                    Ask us a question
+                  </a>
+                </div>
+              </div>
+            </Reveal>
+
+            <Reveal delay={100}>
+              <Faq />
+            </Reveal>
+          </div>
+        </section>
+
         {/* Contact */}
         <section id="contact" className="container-page py-16">
           <Reveal>
@@ -503,6 +560,28 @@ export default function Home() {
             </div>
           </Reveal>
         </section>
+
+        {/* Ticker */}
+        <div className="relative overflow-hidden border-y border-white/10 bg-[#0f0616] py-8">
+          <div className="marquee-track gap-10">
+            {Array.from({ length: 8 }).map((_, i) => (
+              <div key={i} className="flex shrink-0 items-center gap-10">
+                <span className="font-display text-3xl sm:text-4xl font-semibold text-white/20 whitespace-nowrap">
+                  Let&apos;s build something great
+                </span>
+                <Sparkles className="h-6 w-6 shrink-0 text-fuchsia-400/40" aria-hidden="true" />
+              </div>
+            ))}
+          </div>
+          <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-r from-[#0f0616] via-[#0f0616]/40 to-[#0f0616]">
+            <a
+              href="#contact"
+              className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-gradient-brand px-7 text-sm font-semibold text-white shadow-lg shadow-ultimate-purple/30 hover:-translate-y-0.5 hover:shadow-xl transition-all"
+            >
+              Book a call now ↗
+            </a>
+          </div>
+        </div>
       </main>
 
       <Footer />
