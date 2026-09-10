@@ -13,9 +13,9 @@ import {
   PORTFOLIO_LOGOS,
   SERVICES,
   STATS,
-  TESTIMONIAL,
   BRAND,
 } from "@/lib/site";
+import { TestimonialsCarousel } from "@/components/site/TestimonialsCarousel";
 
 const ACCENT_COLORS: IconBadgeColor[] = ["purple", "fuchsia", "blue", "amber", "emerald"];
 
@@ -132,14 +132,6 @@ export default function Home() {
           <div className="container-page relative w-full py-16 sm:py-20">
             <div className="grid gap-10 lg:grid-cols-[1fr_320px] lg:items-end">
               <div className="space-y-6 text-white">
-                <div className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-3 py-1.5 text-xs font-semibold text-white backdrop-blur">
-                  <span className="relative flex h-1.5 w-1.5">
-                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-fuchsia-300 opacity-75" />
-                    <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-fuchsia-300" />
-                  </span>
-                  Now booking new projects
-                </div>
-
                 <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl font-semibold tracking-tight text-balance">
                   Your <span className="text-gradient-on-dark">one-stop tech ecosystem</span>{" "}
                   for brands that want to grow.
@@ -315,7 +307,7 @@ export default function Home() {
             <SectionHeading
               eyebrow="Other services"
               title="Zoom and Google Meet rentals"
-              subtitle="Level up your virtual experience with our account rental options."
+              subtitle="Level up your virtual experience with our premium account options."
             />
           </Reveal>
 
@@ -459,33 +451,7 @@ export default function Home() {
           </Reveal>
 
           <Reveal delay={100}>
-            <div className="noise-overlay relative mt-10 card-dark rounded-3xl p-8 sm:p-10 overflow-hidden">
-              <span className="font-display absolute -top-6 left-6 text-8xl text-white/10 select-none" aria-hidden="true">
-                “
-              </span>
-              <div className="relative font-display text-lg sm:text-xl font-medium leading-snug">
-                “{TESTIMONIAL.headline}”
-              </div>
-              <div className="relative mt-6 whitespace-pre-line leading-relaxed text-sm text-white/75">
-                {TESTIMONIAL.body}
-              </div>
-              <div className="relative mt-8 flex items-center justify-between gap-4 border-t border-white/15 pt-6">
-                <div className="flex items-center gap-3">
-                  <div className="grid h-11 w-11 place-items-center rounded-full bg-white font-display text-sm font-semibold text-ultimate-purple">
-                    {TESTIMONIAL.author
-                      .split(" ")
-                      .map((p) => p[0])
-                      .join("")}
-                  </div>
-                  <div className="font-display font-semibold">
-                    {TESTIMONIAL.author}
-                  </div>
-                </div>
-                <div className="text-xs text-white/60">
-                  Verified client feedback
-                </div>
-              </div>
-            </div>
+            <TestimonialsCarousel />
           </Reveal>
         </section>
 
@@ -533,12 +499,14 @@ export default function Home() {
                 </div>
                 <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 lg:justify-items-end">
                   <a
-                    href={BRAND.phoneHref}
+                    href={BRAND.calendlyHref}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="inline-flex h-12 w-full flex-col items-center justify-center rounded-full border border-white/25 bg-white/10 px-6 hover:bg-white/20 hover:-translate-y-0.5 transition-all"
                   >
                     <span className="text-xs font-semibold leading-4">Call</span>
                     <span className="text-xs font-medium text-white/90 leading-4">
-                      {BRAND.phoneDisplay}
+                      Book discovery call
                     </span>
                   </a>
                   <a
@@ -575,7 +543,9 @@ export default function Home() {
           </div>
           <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-r from-[#0f0616] via-[#0f0616]/40 to-[#0f0616]">
             <a
-              href="#contact"
+              href={BRAND.calendlyHref}
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-gradient-brand px-7 text-sm font-semibold text-white shadow-lg shadow-ultimate-purple/30 hover:-translate-y-0.5 hover:shadow-xl transition-all"
             >
               Book a call now ↗

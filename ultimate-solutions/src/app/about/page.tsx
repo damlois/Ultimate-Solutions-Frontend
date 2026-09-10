@@ -24,14 +24,14 @@ const TEAM = [
 		src: "/team/Anuoluwapo%20Soremekun.jpeg",
 	},
 	{
-		name: "Emmanuel Adegbola",
-		role: "Brand Identity Expert",
-		src: "/team/Emmanuel%20Adegbola.png",
-	},
-	{
 		name: "Gbadebo Adewale",
 		role: "Chief Operating Officer",
 		src: "/team/Gbadebo%20Adewale.jpeg",
+	},
+	{
+		name: "Emmanuel Adegbola",
+		role: "Brand Identity Expert",
+		src: "/team/Emmanuel%20Adegbola.png",
 	},
 	{
 		name: "Oluwanifesimi Ariyo",
@@ -196,7 +196,7 @@ export default function AboutPage() {
 						Join our free webinar and learn how we help brands design, build, and grow.
 					</p>
 					<Link
-						href="https://example.com/webinar-register"
+						href="https://tinyurl.com/sorexineaskmeanything"
 						target="_blank"
 						rel="noopener noreferrer"
 						className="inline-flex h-12 items-center justify-center rounded-full bg-white px-7 font-semibold text-ultimate-purple shadow-lg hover:bg-gray-100 hover:-translate-y-0.5 transition-all"
