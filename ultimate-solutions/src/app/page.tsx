@@ -17,15 +17,16 @@ import {
 } from "@/lib/site";
 import { TestimonialsCarousel } from "@/components/site/TestimonialsCarousel";
 
-const ACCENT_COLORS: IconBadgeColor[] = ["purple", "fuchsia", "blue", "amber", "emerald"];
-
 const SERVICE_CARD_BG = [
   "bg-violet-100",
   "bg-fuchsia-100",
   "bg-sky-100",
   "bg-amber-100",
   "bg-emerald-100",
+  "bg-rose-100",
 ];
+
+const ACCENT_COLORS: IconBadgeColor[] = ["purple", "fuchsia", "blue", "amber", "emerald"];
 
 const PORTFOLIO_TINTS = [
   "bg-violet-50",

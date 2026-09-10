@@ -49,6 +49,12 @@ export const SERVICES = [
       "High-impact edits for ads, reels, promos, and brand storytelling.",
   },
   {
+    title: "Social Media Management",
+    icon: "share",
+    description:
+      "Content planning, posting, and engagement that keep your brand active and consistent online.",
+  },
+  {
     title: "Project/Event Management",
     icon: "calendar",
     description:

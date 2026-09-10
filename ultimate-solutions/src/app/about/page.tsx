@@ -171,7 +171,7 @@ export default function AboutPage() {
 										</div>
 
 										<div className="mt-5">
-											<div className="font-display text-lg font-semibold">
+											<div className="font-display text-lg font-semibold md:whitespace-nowrap">
 												{m.name}
 											</div>
 											<div className="text-sm text-muted">{m.role}</div>
