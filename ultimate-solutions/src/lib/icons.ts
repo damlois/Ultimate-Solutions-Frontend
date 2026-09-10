@@ -7,6 +7,7 @@ import {
   MonitorUp,
   MessagesSquare,
   Palette,
+  Share2,
   Video,
 } from "lucide-react";
 
@@ -15,6 +16,7 @@ export const ICONS = {
   layout: Layout,
   code: Code2,
   clapperboard: Clapperboard,
+  share: Share2,
   calendar: Calendar,
   video: Video,
   messages: MessagesSquare,

@@ -8,6 +8,8 @@ import { ABOUT, VISION_MISSION_OBJECTIVE } from "@/lib/site";
 import { Eye, Sparkles, Target } from "lucide-react";
 
 const ACCENT_COLORS: IconBadgeColor[] = ["purple", "fuchsia", "blue"];
+const CARD_TINTS = ["bg-violet-200/70", "bg-fuchsia-200/70", "bg-sky-200/70"];
+const TEAM_TINTS = ["bg-violet-100", "bg-sky-100", "bg-amber-100", "bg-emerald-100"];
 
 const PILLARS = [
 	{ key: "vision", label: "Vision", icon: Eye, text: VISION_MISSION_OBJECTIVE.vision },
@@ -22,14 +24,14 @@ const TEAM = [
 		src: "/team/Anuoluwapo%20Soremekun.jpeg",
 	},
 	{
-		name: "Emmanuel Adegbola",
-		role: "Brand Identity Expert",
-		src: "/team/Emmanuel%20Adegbola.png",
-	},
-	{
 		name: "Gbadebo Adewale",
 		role: "Chief Operating Officer",
 		src: "/team/Gbadebo%20Adewale.jpeg",
+	},
+	{
+		name: "Emmanuel Adegbola",
+		role: "Brand Identity Expert",
+		src: "/team/Emmanuel%20Adegbola.png",
 	},
 	{
 		name: "Oluwanifesimi Ariyo",
@@ -113,10 +115,16 @@ export default function AboutPage() {
 					<section className="grid gap-4 md:grid-cols-3">
 						{PILLARS.map((p, i) => (
 							<Reveal key={p.key} delay={i * 100}>
-								<div className="card-soft-hover h-full rounded-3xl p-8">
-									<IconBadge icon={p.icon} color={ACCENT_COLORS[i % ACCENT_COLORS.length]} />
+								<div
+									className={[
+										"h-full rounded-3xl p-8 shadow-sm transition-all duration-300",
+										"hover:-translate-y-1.5 hover:rotate-1 hover:shadow-xl",
+										CARD_TINTS[i % CARD_TINTS.length],
+									].join(" ")}
+								>
+									<IconBadge icon={p.icon} color={ACCENT_COLORS[i % ACCENT_COLORS.length]} className="bg-white shadow-sm" />
 									<div className="mt-5 font-display text-lg font-semibold">{p.label}</div>
-									<p className="mt-3 text-sm text-muted leading-relaxed">{p.text}</p>
+									<p className="mt-3 text-sm text-[#150419]/70 leading-relaxed">{p.text}</p>
 								</div>
 							</Reveal>
 						))}
@@ -142,7 +150,13 @@ export default function AboutPage() {
 						<div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
 							{TEAM.map((m, i) => (
 								<Reveal key={m.name} delay={i * 90}>
-									<div className="group card-soft-hover h-full rounded-3xl p-6 overflow-hidden">
+									<div
+										className={[
+											"group h-full rounded-3xl p-6 overflow-hidden shadow-sm transition-all duration-300",
+											"hover:-translate-y-1.5 hover:-rotate-1 hover:shadow-xl",
+											TEAM_TINTS[i % TEAM_TINTS.length],
+										].join(" ")}
+									>
 										<div className="relative">
 											<div className="absolute -inset-10 bg-gradient-to-br from-ultimate-purple/15 via-transparent to-transparent blur-2xl" />
 											<div className="relative aspect-[4/4] w-full rounded-2xl bg-card overflow-hidden shadow-md">
@@ -157,7 +171,7 @@ export default function AboutPage() {
 										</div>
 
 										<div className="mt-5">
-											<div className="font-display text-lg font-semibold">
+											<div className="font-display text-lg font-semibold md:whitespace-nowrap">
 												{m.name}
 											</div>
 											<div className="text-sm text-muted">{m.role}</div>
@@ -182,7 +196,7 @@ export default function AboutPage() {
 						Join our free webinar and learn how we help brands design, build, and grow.
 					</p>
 					<Link
-						href="https://example.com/webinar-register"
+						href="https://tinyurl.com/sorexineaskmeanything"
 						target="_blank"
 						rel="noopener noreferrer"
 						className="inline-flex h-12 items-center justify-center rounded-full bg-white px-7 font-semibold text-ultimate-purple shadow-lg hover:bg-gray-100 hover:-translate-y-0.5 transition-all"
