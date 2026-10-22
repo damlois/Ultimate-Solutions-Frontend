@@ -151,13 +151,13 @@ export const OTHER_SERVICES = [
 ] as const;
 
 export const REQUEST_SERVICES = [
-  "Business Registration",
+  "Business/Company Registration",
   ...SERVICES.map((s) => s.title),
   ...OTHER_SERVICES.map((s) => `${s.title} account rental`),
   "Other",
 ] as const;
 
-export const BUSINESS_REGISTRATION_SERVICE = "Business Registration" as const;
+export const BUSINESS_REGISTRATION_SERVICE = "Business/Company Registration" as const;
 
 export const PORTFOLIO_LOGOS = [
   { src: "/portfolio/logos/logo1.png", alt: "Groovesfy" },

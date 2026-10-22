@@ -313,7 +313,10 @@ async function parsePayload(req: Request): Promise<
           200,
         );
 
+        const registrationType = getString(form, "registrationType", 20);
+
         if (
+          (registrationType !== "Business" && registrationType !== "Company") ||
           !alternativeBusinessName ||
           !fullNames ||
           !dateOfBirth ||
@@ -327,7 +330,7 @@ async function parsePayload(req: Request): Promise<
         ) {
           return {
             ok: false,
-            error: "Please complete all required business registration fields.",
+            error: "Please complete all required registration fields.",
             status: 400,
           };
         }
@@ -349,10 +352,13 @@ async function parsePayload(req: Request): Promise<
           form,
           "passportPhoto",
           "Passport photograph",
-          true,
+          registrationType === "Business",
         );
         if (passport.error)
           return { ok: false, error: passport.error, status: 400 };
+
+        const attachments = [idDoc.file!, signature.file!];
+        if (passport.file) attachments.push(passport.file);
 
         return {
           ok: true,
@@ -365,6 +371,7 @@ async function parsePayload(req: Request): Promise<
             message: null,
             readyToFillDetails: "yes",
             business: {
+              "Registration type": registrationType,
               "Proposed Business Name": proposedBusinessName,
               "Alternative Business Name": alternativeBusinessName,
               "Full names": fullNames,
@@ -377,7 +384,7 @@ async function parsePayload(req: Request): Promise<
               "Address of the business": businessAddress,
               "Nature of business": natureOfBusiness,
             },
-            attachments: [idDoc.file!, signature.file!, passport.file!],
+            attachments,
           },
         };
       }

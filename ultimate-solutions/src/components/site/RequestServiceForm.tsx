@@ -6,6 +6,7 @@ import { BUSINESS_REGISTRATION_SERVICE, REQUEST_SERVICES } from "@/lib/site";
 
 type Status = "idle" | "submitting" | "success" | "error";
 type ReadyChoice = "" | "yes" | "no";
+type RegistrationType = "" | "Business" | "Company";
 
 const fieldClass =
   "mt-1.5 w-full rounded-2xl border border-border bg-white px-4 py-3 text-sm text-foreground shadow-sm outline-none transition placeholder:text-muted/70 focus:border-ultimate-purple/40 focus:ring-2 focus:ring-ultimate-purple/20";
@@ -60,6 +61,7 @@ export function RequestServiceForm() {
   const [message, setMessage] = useState("");
   const [website, setWebsite] = useState("");
   const [ready, setReady] = useState<ReadyChoice>("");
+  const [registrationType, setRegistrationType] = useState<RegistrationType>("");
   const [business, setBusiness] = useState(emptyBusiness);
   const [idDocument, setIdDocument] = useState<File | null>(null);
   const [signature, setSignature] = useState<File | null>(null);
@@ -69,6 +71,7 @@ export function RequestServiceForm() {
 
   const isBusinessRegistration = service === BUSINESS_REGISTRATION_SERVICE;
   const showBusinessFields = isBusinessRegistration && ready === "yes";
+  const showPassportPhoto = showBusinessFields && registrationType === "Business";
   const showNotReadyFields = isBusinessRegistration && ready === "no";
   const showGeneralFields = !isBusinessRegistration;
 
@@ -81,6 +84,7 @@ export function RequestServiceForm() {
     setMessage("");
     setWebsite("");
     setReady("");
+    setRegistrationType("");
     setBusiness(emptyBusiness);
     setIdDocument(null);
     setSignature(null);
@@ -90,6 +94,7 @@ export function RequestServiceForm() {
   function onServiceChange(value: string) {
     setService(value);
     setReady("");
+    setRegistrationType("");
     setBusiness(emptyBusiness);
     setIdDocument(null);
     setSignature(null);
@@ -119,10 +124,13 @@ export function RequestServiceForm() {
         formData.set("idType", business.idType);
         formData.set("businessAddress", business.businessAddress);
         formData.set("natureOfBusiness", business.natureOfBusiness);
+        formData.set("registrationType", registrationType);
         formData.set("name", business.fullNames);
         if (idDocument) formData.set("idDocument", idDocument);
         if (signature) formData.set("signature", signature);
-        if (passportPhoto) formData.set("passportPhoto", passportPhoto);
+        if (showPassportPhoto && passportPhoto) {
+          formData.set("passportPhoto", passportPhoto);
+        }
       } else {
         formData.set("name", name);
         formData.set("email", email);
@@ -204,7 +212,7 @@ export function RequestServiceForm() {
       {isBusinessRegistration ? (
         <fieldset className="rounded-3xl border border-ultimate-purple/15 bg-ultimate-purple/[0.03] p-5">
           <legend className="px-1 text-sm font-semibold text-foreground">
-            Are you ready to fill in your business registration details? <Req />
+            Are you ready to fill in your registration details? <Req />
           </legend>
           <div className="mt-3 flex flex-wrap gap-3">
             <button
@@ -331,6 +339,42 @@ export function RequestServiceForm() {
 
       {showBusinessFields ? (
         <div className="space-y-5">
+          <fieldset className="rounded-3xl border border-ultimate-purple/15 bg-ultimate-purple/[0.03] p-5">
+            <legend className="px-1 text-sm font-semibold text-foreground">
+              Is this a business or a company? <Req />
+            </legend>
+            <div className="mt-3 flex flex-wrap gap-3">
+              <button
+                type="button"
+                className={[
+                  "inline-flex h-11 items-center justify-center rounded-full px-5 text-sm font-semibold transition-all",
+                  registrationType === "Business"
+                    ? "bg-ultimate-purple text-white shadow-sm shadow-ultimate-purple/30"
+                    : "border border-ultimate-purple/25 bg-white text-ultimate-purple hover:bg-ultimate-purple/5",
+                ].join(" ")}
+                onClick={() => setRegistrationType("Business")}
+              >
+                Business
+              </button>
+              <button
+                type="button"
+                className={[
+                  "inline-flex h-11 items-center justify-center rounded-full px-5 text-sm font-semibold transition-all",
+                  registrationType === "Company"
+                    ? "bg-ultimate-purple text-white shadow-sm shadow-ultimate-purple/30"
+                    : "border border-ultimate-purple/25 bg-white text-ultimate-purple hover:bg-ultimate-purple/5",
+                ].join(" ")}
+                onClick={() => {
+                  setRegistrationType("Company");
+                  setPassportPhoto(null);
+                }}
+              >
+                Company
+              </button>
+            </div>
+          </fieldset>
+
+          {registrationType ? (
           <div className="grid gap-5 sm:grid-cols-2">
             <label className="block text-sm font-medium text-foreground sm:col-span-2">
               Proposed Business Name <Req />
@@ -532,17 +576,20 @@ export function RequestServiceForm() {
               />
             </label>
 
-            <label className="block text-sm font-medium text-foreground sm:col-span-2">
-              Passport photograph <Req />
-              <input
-                className={fileClass}
-                type="file"
-                accept="image/*"
-                required
-                onChange={(e) => setPassportPhoto(e.target.files?.[0] ?? null)}
-              />
-            </label>
+            {showPassportPhoto ? (
+              <label className="block text-sm font-medium text-foreground sm:col-span-2">
+                Passport photograph <Req />
+                <input
+                  className={fileClass}
+                  type="file"
+                  accept="image/*"
+                  required
+                  onChange={(e) => setPassportPhoto(e.target.files?.[0] ?? null)}
+                />
+              </label>
+            ) : null}
           </div>
+          ) : null}
         </div>
       ) : null}
 
