@@ -377,7 +377,7 @@ export function RequestServiceForm() {
           {registrationType ? (
           <div className="grid gap-5 sm:grid-cols-2">
             <label className="block text-sm font-medium text-foreground sm:col-span-2">
-              Proposed Business Name <Req />
+              Proposed {registrationType} Name <Req />
               <input
                 className={fieldClass}
                 required
@@ -388,12 +388,16 @@ export function RequestServiceForm() {
                     proposedBusinessName: e.target.value,
                   }))
                 }
-                placeholder="e.g. Acme Ventures Ltd"
+                placeholder={
+                  registrationType === "Company"
+                    ? "e.g. Acme Ventures Ltd"
+                    : "e.g. Acme Ventures"
+                }
               />
             </label>
 
             <label className="block text-sm font-medium text-foreground sm:col-span-2">
-              Alternative Business Name <Req />{" "}
+              Alternative {registrationType} Name <Req />{" "}
               <span className="font-normal text-muted">
                 (in case the proposed name is unavailable)
               </span>
@@ -412,7 +416,7 @@ export function RequestServiceForm() {
             </label>
 
             <label className="block text-sm font-medium text-foreground">
-              Full names <Req />
+              Full name <Req />
               <input
                 className={fieldClass}
                 required
@@ -544,7 +548,7 @@ export function RequestServiceForm() {
             </label>
 
             <label className="block text-sm font-medium text-foreground sm:col-span-2">
-              Address of the business <Req />
+              Address of the {registrationType.toLowerCase()} <Req />
               <input
                 className={fieldClass}
                 required
@@ -555,12 +559,16 @@ export function RequestServiceForm() {
                     businessAddress: e.target.value,
                   }))
                 }
-                placeholder="Business / registered office address"
+                placeholder={
+                  registrationType === "Company"
+                    ? "Company / registered office address"
+                    : "Business address"
+                }
               />
             </label>
 
             <label className="block text-sm font-medium text-foreground sm:col-span-2">
-              Nature of business <Req />
+              Nature of {registrationType.toLowerCase()} <Req />
               <textarea
                 className={`${fieldClass} min-h-24 resize-y`}
                 required
@@ -572,7 +580,7 @@ export function RequestServiceForm() {
                     natureOfBusiness: e.target.value,
                   }))
                 }
-                placeholder="What will the business do?"
+                placeholder={`What will the ${registrationType.toLowerCase()} do?`}
               />
             </label>
 

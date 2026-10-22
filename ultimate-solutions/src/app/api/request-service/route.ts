@@ -192,7 +192,7 @@ function buildEmailHtml(payload: Payload) {
               </td>
             </tr>
             ${section("Contact", contactRows)}
-            ${businessRows ? section("Business registration", businessRows) : ""}
+            ${businessRows ? section(`${payload.business?.["Registration type"] ?? "Registration"} registration`, businessRows) : ""}
             ${messageBlock}
             ${attachmentBlock}
             <tr>
@@ -372,17 +372,17 @@ async function parsePayload(req: Request): Promise<
             readyToFillDetails: "yes",
             business: {
               "Registration type": registrationType,
-              "Proposed Business Name": proposedBusinessName,
-              "Alternative Business Name": alternativeBusinessName,
-              "Full names": fullNames,
+              [`Proposed ${registrationType} Name`]: proposedBusinessName,
+              [`Alternative ${registrationType} Name`]: alternativeBusinessName,
+              "Full name": fullNames,
               "Date of birth": dateOfBirth,
               Email: email,
               Address: address,
               Occupation: occupation,
               "Phone number": phone,
               "Means of I.D.": idType,
-              "Address of the business": businessAddress,
-              "Nature of business": natureOfBusiness,
+              [`Address of the ${registrationType.toLowerCase()}`]: businessAddress,
+              [`Nature of ${registrationType.toLowerCase()}`]: natureOfBusiness,
             },
             attachments,
           },
