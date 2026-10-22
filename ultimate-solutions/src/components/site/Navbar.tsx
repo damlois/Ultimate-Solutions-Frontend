@@ -77,15 +77,21 @@ export function Navbar() {
           })}
         </nav>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 sm:gap-3">
           <a
             href={BRAND.calendlyHref}
             target="_blank"
             rel="noopener noreferrer"
-            className="hidden sm:inline-flex h-11 items-center rounded-full px-5 text-sm font-semibold bg-ultimate-purple text-white shadow-sm shadow-ultimate-purple/30 hover:bg-ultimate-purple-2 hover:shadow-md hover:shadow-ultimate-purple/40 hover:-translate-y-0.5 transition-all"
+            className="hidden md:inline-flex h-11 items-center rounded-full border border-ultimate-purple/25 bg-ultimate-purple/5 px-5 text-sm font-semibold text-ultimate-purple hover:bg-ultimate-purple/10 hover:-translate-y-0.5 transition-all"
           >
-            Book A Free Consultation
+            Book A Discovery Call
           </a>
+          <Link
+            href="/request"
+            className="hidden md:inline-flex h-11 items-center rounded-full px-5 text-sm font-semibold bg-ultimate-purple text-white shadow-sm shadow-ultimate-purple/30 hover:bg-ultimate-purple-2 hover:shadow-md hover:shadow-ultimate-purple/40 hover:-translate-y-0.5 transition-all"
+          >
+            Request A Service
+          </Link>
 
           <button
             type="button"
@@ -150,16 +156,23 @@ export function Navbar() {
               })}
             </nav>
 
-            <div className="mt-6 space-y-3 border-t border-border/60 pt-6 sm:hidden">
+            <div className="mt-6 space-y-3 border-t border-border/60 pt-6">
               <a
                 href={BRAND.calendlyHref}
                 target="_blank"
                 rel="noopener noreferrer"
+                className="inline-flex h-11 w-full items-center justify-center rounded-full border border-ultimate-purple/25 bg-ultimate-purple/5 px-6 text-sm font-semibold text-ultimate-purple hover:bg-ultimate-purple/10 transition"
+                onClick={() => setMenuOpen(false)}
+              >
+                Book A Discovery Call
+              </a>
+              <Link
+                href="/request"
                 className="inline-flex h-11 w-full items-center justify-center rounded-full bg-ultimate-purple px-6 text-sm font-semibold text-white hover:bg-ultimate-purple-2 transition"
                 onClick={() => setMenuOpen(false)}
               >
-                Book A Free Consultation
-              </a>
+                Request A Service
+              </Link>
               <a
                 href={BRAND.emailHref}
                 className="block text-sm text-muted hover:text-foreground transition"

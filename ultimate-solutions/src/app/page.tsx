@@ -16,6 +16,7 @@ import {
   BRAND,
 } from "@/lib/site";
 import { TestimonialsCarousel } from "@/components/site/TestimonialsCarousel";
+import { ContactForm } from "@/components/site/ContactForm";
 
 const SERVICE_CARD_BG = [
   "bg-violet-100",
@@ -485,45 +486,60 @@ export default function Home() {
         {/* Contact */}
         <section id="contact" className="container-page py-16">
           <Reveal>
-            <div className="noise-overlay relative overflow-hidden rounded-3xl bg-gradient-brand p-7 sm:p-10 text-white shadow-2xl shadow-ultimate-purple/30">
-              <div className="absolute -top-24 -right-24 h-[260px] w-[260px] rounded-full bg-white/15 blur-3xl animate-float-slow" />
-              <div className="absolute -bottom-24 -left-24 h-[220px] w-[220px] rounded-full bg-sky-400/20 blur-3xl animate-float-slower" />
-              <div className="relative grid gap-8 lg:grid-cols-2 lg:items-center">
-                <div className="space-y-3">
-                  <div className="font-display text-3xl font-semibold tracking-tight">
-                    Let’s build something great.
+            <div className="overflow-hidden rounded-[2rem] border border-border/70 bg-white shadow-[0_24px_60px_-36px_rgba(77,13,87,0.35)]">
+              <div className="grid lg:grid-cols-[0.9fr_1.1fr]">
+                <div className="bg-[#3a0942] p-7 text-white sm:p-10">
+                  <div className="flex h-full flex-col">
+                    <div className="space-y-3">
+                      <div className="font-display text-3xl font-semibold tracking-tight">
+                        Let’s build something great.
+                      </div>
+                      <p className="max-w-sm text-white/80 leading-relaxed">
+                        Reach out and tell us how we can help. We’ll respond
+                        shortly.
+                      </p>
+                    </div>
+
+                    <div className="mt-8 space-y-3">
+                      <a
+                        href={BRAND.calendlyHref}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center justify-between rounded-2xl border border-white/20 bg-white/10 px-4 py-3 hover:bg-white/20 transition-all"
+                      >
+                        <span>
+                          <span className="block text-xs text-white/70">Call</span>
+                          <span className="text-sm font-semibold">Book a discovery call</span>
+                        </span>
+                        <span aria-hidden="true">↗</span>
+                      </a>
+                      <a
+                        href={BRAND.emailHref}
+                        className="flex items-center justify-between rounded-2xl border border-white/20 bg-white/10 px-4 py-3 hover:bg-white/20 transition-all"
+                      >
+                        <span>
+                          <span className="block text-xs text-white/70">Email</span>
+                          <span className="text-sm font-semibold break-all">{BRAND.email}</span>
+                        </span>
+                      </a>
+                      <a
+                        href={BRAND.whatsappHref}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="flex items-center justify-between rounded-2xl bg-white px-4 py-3 text-ultimate-purple hover:bg-white/90 transition-all"
+                      >
+                        <span>
+                          <span className="block text-xs text-ultimate-purple/70">WhatsApp</span>
+                          <span className="text-sm font-semibold">{BRAND.phoneDisplay}</span>
+                        </span>
+                        <span aria-hidden="true">↗</span>
+                      </a>
+                    </div>
                   </div>
-                  <p className="text-white/80">
-                    Reach out for design, development, video editing, or
-                    project/event management. We’ll respond quickly.
-                  </p>
                 </div>
-                <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 lg:justify-items-end">
-                  <a
-                    href={BRAND.calendlyHref}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex h-12 w-full flex-col items-center justify-center rounded-full border border-white/25 bg-white/10 px-6 hover:bg-white/20 hover:-translate-y-0.5 transition-all"
-                  >
-                    <span className="text-xs font-semibold leading-4">Call</span>
-                    <span className="text-xs font-medium text-white/90 leading-4">
-                      Book discovery call
-                    </span>
-                  </a>
-                  <a
-                    href={BRAND.emailHref}
-                    className="inline-flex h-12 w-full items-center justify-center rounded-full border border-white/25 bg-white/10 px-6 text-sm font-semibold hover:bg-white/20 hover:-translate-y-0.5 transition-all"
-                  >
-                    Email us
-                  </a>
-                  <a
-                    href={BRAND.whatsappHref}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex h-12 w-full items-center justify-center rounded-full bg-white px-6 text-sm font-semibold text-ultimate-purple hover:bg-white/90 hover:-translate-y-0.5 transition-all sm:col-span-2 lg:col-span-1"
-                  >
-                    Message on WhatsApp
-                  </a>
+
+                <div className="bg-[#fcfbfe] p-7 sm:p-10">
+                  <ContactForm />
                 </div>
               </div>
             </div>

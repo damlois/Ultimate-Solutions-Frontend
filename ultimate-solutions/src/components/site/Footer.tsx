@@ -48,25 +48,6 @@ export function Footer() {
       />
 
       <div className="container-page py-14">
-        <div className="flex flex-col gap-6 rounded-3xl bg-white/5 border border-white/10 p-8 sm:flex-row sm:items-center sm:justify-between sm:p-10">
-          <div className="space-y-2">
-            <div className="font-display text-2xl sm:text-3xl font-semibold tracking-tight">
-              Have a project in mind?
-            </div>
-            <p className="text-white/70 max-w-md">
-              Let&apos;s talk about design, development, video editing, or event management.
-            </p>
-          </div>
-          <a
-            href={BRAND.whatsappHref}
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex h-12 shrink-0 items-center justify-center rounded-full bg-gradient-brand px-7 text-sm font-semibold text-white shadow-lg shadow-ultimate-purple/30 hover:-translate-y-0.5 hover:shadow-xl transition-all"
-          >
-            Start a conversation
-          </a>
-        </div>
-
         <div className="mt-14 grid gap-10 md:grid-cols-3">
           <div className="space-y-3">
             <div className="flex items-center">
