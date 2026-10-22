@@ -161,15 +161,15 @@ export default function WorkPage() {
         </div>
 
         <div className="container-page py-14 sm:py-18 flex flex-col gap-10">
-          <div className="space-y-4">
+          <div className="flex flex-col gap-4">
             <Link
               href="/"
-              className="inline-flex items-center gap-2 text-sm text-muted hover:text-foreground hover:-translate-x-0.5 transition-all"
+              className="inline-flex w-fit items-center gap-2 text-sm text-muted hover:text-foreground hover:-translate-x-0.5 transition-all"
             >
               <span className="text-lg leading-none">←</span> Back to home
             </Link>
 
-            <div className="inline-flex items-center gap-2 rounded-full border border-ultimate-purple/20 bg-ultimate-purple/5 px-3 py-1 text-xs font-semibold text-ultimate-purple">
+            <div className="mt-4 inline-flex w-fit items-center gap-2 rounded-full border border-ultimate-purple/20 bg-ultimate-purple/5 px-3 py-1 text-xs font-semibold text-ultimate-purple">
               <span className="h-1.5 w-1.5 rounded-full bg-ultimate-purple" />
               Our work
             </div>

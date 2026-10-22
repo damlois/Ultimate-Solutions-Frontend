@@ -27,8 +27,8 @@
   --color-ultimate-purple: var(--ultimate-purple);
   --color-ultimate-purple-2: var(--ultimate-purple-2);
 
-  --font-sans: var(--font-inter);
-  --font-display: var(--font-space-grotesk);
+  --font-sans: "Satoshi", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-display: "Clash Display", "Satoshi", ui-sans-serif, system-ui, -apple-system, sans-serif;
 }
 
 /* Keep the site light even if the device is in Dark Mode */
@@ -148,6 +148,17 @@ button:focus-visible,
   animation: gradient-pan 8s ease infinite;
 }
 
+/* Brighter variant for use on dark/photo backgrounds, where the default
+   gradient's dark purple stop loses contrast against dark overlays. */
+.text-gradient-on-dark {
+  background: linear-gradient(90deg, #f0abfc 0%, #e9d5ff 45%, #93c5fd 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  background-size: 200% 100%;
+  animation: gradient-pan 8s ease infinite;
+}
+
 .bg-gradient-brand {
   background: linear-gradient(120deg, var(--ultimate-purple), var(--accent-fuchsia) 60%, var(--accent-blue));
 }
@@ -258,6 +269,21 @@ button:focus-visible,
   }
 }
 
+@keyframes testimonial-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-testimonial-in {
+  animation: testimonial-in 0.35s ease-out both;
+}
+
 .animate-modal-backdrop {
   animation: modal-backdrop-in 0.25s ease both;
 }
@@ -283,6 +309,7 @@ button:focus-visible,
     scroll-behavior: auto;
   }
   .text-gradient,
+  .text-gradient-on-dark,
   .gradient-border,
   .marquee-track,
   .animate-float-slow,
